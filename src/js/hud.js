@@ -4,7 +4,8 @@ export function initHud(ctx) {
   const hud = document.querySelector('[data-hud]');
   const now = document.querySelector('[data-now]');
   const nowWrap = now && now.parentElement;
-  const hero = document.querySelector('[data-hero]');
+  // home: the 3D hero; project pages: the cover
+  const hero = document.querySelector('[data-hero], [data-phero]');
   const gauge = document.querySelector('[data-gauge]');
   const menu = document.querySelector('[data-menu]');
   const openBtn = document.querySelector('[data-menu-open]');
@@ -34,26 +35,30 @@ export function initHud(ctx) {
   hud.addEventListener('focusin', () => { hidden = false; hud.classList.remove('hud--hidden'); });
 
   // ── current section ──
-  const sections = [...document.querySelectorAll('main > article.project, main > section.practice, main > section.about, main > section.contact')];
+  const sections = [...document.querySelectorAll('main > section.feature, main > section.works, main > article.project, main > section.practice, main > section.about, main > section.contact')];
+  const onHome = document.documentElement.classList.contains('is-home');
   const navFor = (el) => {
-    if (el.classList.contains('project')) return '#work';
+    if (el.classList.contains('contact')) return '#contact';
+    if (!onHome) return '';
+    if (el.classList.contains('project') || el.classList.contains('feature')) return '#work';
     return `#${el.id}`;
   };
   sections.forEach((el) => {
-    const title = el.querySelector('.project__title, .section-title');
+    const title = el.querySelector('.phero__title, .project__title, .section-title');
     ScrollTrigger.create({
-      trigger: el.id === 'rcc' ? '#rcc .rcc-role' : el, start: 'top 55%', end: 'bottom 45%',
+      trigger: el.classList.contains('project') ? (el.querySelector('.pintro') || el) : el, endTrigger: el, start: 'top 55%', end: 'bottom 45%',
       onToggle: (self) => {
         if (self.isActive) {
           if (now) { now.textContent = title ? title.textContent : ''; nowWrap.classList.add('is-on'); }
-          navLinks.forEach((a) => (a.getAttribute('href') === navFor(el) ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
+          const want = navFor(el);
+          navLinks.forEach((a) => (want && a.getAttribute('href').endsWith(want) ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
           ctx.currentSection = el.id;
         }
       },
     });
   });
-  ScrollTrigger.create({
-    trigger: hero || document.body, start: 'top top', end: 'bottom 40%',
+  if (hero) ScrollTrigger.create({
+    trigger: hero, start: 'top top', end: 'bottom 40%',
     onToggle: (self) => { if (self.isActive && nowWrap) { nowWrap.classList.remove('is-on'); ctx.currentSection = ''; navLinks.forEach((a) => a.removeAttribute('aria-current')); } },
   });
 

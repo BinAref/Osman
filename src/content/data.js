@@ -112,6 +112,7 @@ export const ui = {
   copied: L('Email address copied', 'تم نسخ البريد الإلكتروني', 'E-posta adresi kopyalandı'),
   cvEn: L('CV in English (PDF)', 'السيرة الذاتية بالإنجليزية (PDF)', 'İngilizce özgeçmiş (PDF)'),
   cvTr: L('CV in Turkish (PDF)', 'السيرة الذاتية بالتركية (PDF)', 'Türkçe özgeçmiş (PDF)'),
+  cvAr: L('CV in Arabic (PDF)', 'السيرة الذاتية بالعربية (PDF)', 'Arapça özgeçmiş (PDF)'),
   portfolio: L('Full portfolio (PDF, 5.4 MB)', 'ملف الأعمال كاملًا (PDF، ‏5.4 ميغابايت)', 'Portfolyonun tamamı (PDF, 5,4 MB)'),
   backToTop: L('Back to the top', 'العودة إلى الأعلى', 'Başa dön'),
   rights: L('Drawings and images from Osman Mohamed’s portfolio.', 'الرسومات والصور من ملف أعمال عثمان محمد.', 'Çizimler ve görseller Osman Mohamed’in portfolyosundandır.'),
@@ -119,6 +120,16 @@ export const ui = {
   langSuggest: L('This site is also available in English.', 'هذا الموقع متاح بالعربية أيضًا.', 'Bu site Türkçe olarak da mevcut.'),
   drawings: L('Drawings', 'الرسومات', 'Çizimler'),
   views: L('Views', 'المشاهد', 'Görünümler'),
+  openProject: L('Open the project', 'افتح المشروع', 'Projeyi aç'),
+  nextProject: L('Next project', 'المشروع التالي', 'Sonraki proje'),
+  allProjects: L('All projects', 'كل المشاريع', 'Tüm projeler'),
+  chooseLevel: L('Choose a level', 'اختر طابقًا', 'Bir kat seçin'),
+  openPlan: L('Open this plan full size', 'افتح هذا المسقط بالحجم الكامل', 'Bu planı tam boyutta aç'),
+  workIntro: L(
+    'Eight projects, from a mall with three towers to the inspection of a housing site. Each opens on its own page.',
+    'ثمانية مشاريع، من مول بثلاثة أبراج إلى فحص موقع إسكان. لكل مشروع صفحته الخاصة.',
+    'Üç kuleli bir AVM’den bir konut şantiyesinin kontrolüne sekiz proje. Her biri kendi sayfasında açılır.'
+  ),
 };
 
 // Every image: caption (shown and used as alt text) in three languages.
@@ -527,7 +538,15 @@ export const indexMeta = {
   slv: L('Diploma project', 'مشروع التخرج', 'Diploma projesi'),
   site: L('Site supervision and quality control', 'إشراف ميداني وضبط جودة', 'Şantiye kontrolü ve kalite kontrol'),
 };
-export const indexThumb = { rcc: 'rcc-night', mrc: 'mrc-aerial', fac: 'fac-street', mvr: 'mvr-r1', villas: 'v1-render', cc: 'cc-aerial', slv: 'slv-aerial', site: 'toki-aerial' };
+// Cover image of each project: used in the index, as the project page's full-bleed hero, and in "next project"
+export const indexThumb = { rcc: 'rcc-night', mrc: 'mrc-night-a', fac: 'fac-street', mvr: 'mvr-r1', villas: 'v1-render', cc: 'cc-aerial', slv: 'slv-aerial', site: 'toki-aerial' };
+// URL of each project page (same slug in every language)
+export const slugs = {
+  rcc: 'residential-commercial-complex', mrc: 'mixed-use-residential-complex', fac: 'facade-design', mvr: 'modern-villa-residences',
+  villas: 'villa-one-and-two', cc: 'community-center', slv: 'senior-living-village', site: 'toki-site-supervision',
+};
+// The light each project page is set in (see tone.js)
+export const projectTone = { rcc: 'dawn', mrc: 'night', fac: 'morning', mvr: 'day', villas: 'bright', cc: 'concrete', slv: 'landscape', site: 'overcast' };
 
 export const practice = {
   title: L('Experience', 'الخبرة', 'Deneyim'),

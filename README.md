@@ -1,9 +1,10 @@
 # Osman Mohamed — Architect
 
 Personal website of architect **Osman Osama Abdalla Mohamed**, in Arabic, English and Turkish.
-A single scroll-driven journey through his work: his mall site plan rises into a 3D massing model and falls into blue hour,
-then the projects follow as scenes — plans that explode into axonometrics, an elevator ride through the office tower,
-drawings that wipe into renders, paper models that turn into a building, and the construction-site record.
+The home page is a short scroll-driven opening — his mall site plan rises into a 3D massing model and falls into blue hour —
+followed by an index of the eight projects, his experience and contact. Each project has its own page with its own scenes:
+the mall assembled level by level as an exploded axonometric, an elevator ride through the office tower, drawings that
+wipe into renders, paper models that turn into a building, and the construction-site record.
 
 ## النشر على GitHub Pages (بالعربية)
 
@@ -14,9 +15,11 @@ drawings that wipe into renders, paper models that turn into a building, and the
 3. اختر الفرع `ccr-5a3eab91-ubtj83` (أو `main` إذا دُمج فيه لاحقًا) والمجلد **`/docs`** ثم **Save**.
 4. بعد دقيقة أو دقيقتين يظهر الموقع على: **https://binaref.github.io/Osman/**
    - العربية: `/Osman/ar/` — التركية: `/Osman/tr/` — الإنجليزية: `/Osman/`.
+   - لكل مشروع صفحته الخاصة، مثل: `/Osman/ar/projects/residential-commercial-complex/`.
    - عند أول زيارة للصفحة الرئيسية يتبع الموقع لغة المتصفح (العربية أو التركية).
 
 لتعديل أي نص بأيٍّ من اللغات الثلاث: الملف `src/content/data.js`، ثم `npm run build` وارفع التغييرات.
+السيرة الذاتية العربية: نصّها في `src/cv/cv-ar.html`، وتُولَّد بصيغة PDF عبر `npm run cv` (تحتاج Playwright)، ثم `npm run build`.
 عند الانتقال إلى نطاق خاص لاحقًا: `SITE_URL=https://your.domain/ npm run build` لتحديث روابط المشاركة والخريطة.
 
 ## Publishing on GitHub Pages
@@ -29,7 +32,8 @@ social-preview and sitemap URLs; set `SITE_URL` to change it (an empty value emi
 
 ```bash
 npm install
-npm run build     # renders docs/index.html, docs/ar/, docs/tr/ and bundles JS/CSS/fonts
+npm run build     # renders the home page and 8 project pages per language into docs/, bundles JS/CSS/fonts
+npm run cv        # optional: typesets the Arabic CV (src/cv/cv-ar.html) to assets-src/pdf/cv-ar.pdf (needs Playwright)
 npm run serve     # http://localhost:4173/
 ```
 
@@ -40,14 +44,15 @@ npm run serve     # http://localhost:4173/
 | Path | What |
 | --- | --- |
 | `src/content/data.js` | Every word on the site in three languages, plus image captions. Facts come only from the CVs and portfolio. |
-| `src/templates/page.js` | The page, rendered once per language (true RTL for Arabic). |
+| `src/templates/site.js` | Home page and project pages, rendered per language (true RTL for Arabic). |
+| `src/cv/cv-ar.html` | The Arabic CV (A4, right-to-left). `scripts/cv.mjs` embeds static font instances from `src/cv/fonts/` (OFL) so the PDF text stays searchable. |
 | `src/css/` | Design system: tokens and tones (`base.css`), header/menu/viewer (`chrome.css`), hero, projects, people. |
 | `src/js/hero3d.js` | Three.js massing model traced from the project's site plan; floors rise as instanced slabs; day → blue hour. |
 | `src/js/scenes.js` | All scroll-scrubbed scenes (GSAP ScrollTrigger + Lenis). |
 | `src/js/tone.js` | The light cycle: page colour interpolated in OKLab as scenes change. |
 | `src/js/viewer.js` | Full-screen drawing viewer (zoom, pan, pinch, keyboard). |
 | `assets-src/pages/` | Every page of the portfolio, extracted losslessly from the PDF. |
-| `assets-src/pdf/` | The original CVs (EN, TR) and portfolio, also offered as downloads. |
+| `assets-src/pdf/` | The CVs (EN, TR, and the Arabic translation) and the portfolio, also offered as downloads. |
 
 ## Image pipeline (only needed when images change)
 

@@ -16,7 +16,8 @@ const mobile = matchMedia('(max-width: 760px), (pointer: coarse)').matches;
 
 let lenis = null;
 if (motion) {
-  lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 0.92, smoothWheel: true, syncTouch: false, autoRaf: false });
+  // quick and light: one notch of the wheel moves the page a full step, settling in a few frames
+  lenis = new Lenis({ lerp: 0.14, wheelMultiplier: 1.2, touchMultiplier: 1.1, smoothWheel: true, syncTouch: false, autoRaf: false });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((t) => lenis.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);

@@ -3,6 +3,7 @@
 @import './hero.css';
 @import './projects.css';
 @import './people.css';
+@import './pages.css';
 
 /* light-cycle engine active: sections let the page's live light through */
 .tone-js [data-tone] { background: transparent; }

@@ -29,7 +29,7 @@ html[lang="ar"] .hero__word { padding-block-end: .1em; }
 html[lang="ar"] .hero__role, html[lang="ar"] .hero__tagline { font-stretch: normal; }
 
 /* ───── motion: scroll-driven build ───── */
-.motion .hero__track { height: 640vh; }
+.motion .hero__track { height: 340vh; }
 .motion .hero__stage { position: sticky; top: 0; }
 .motion .hero__canvas { display: block; }
 .motion .hero__fallback { display: none; }
@@ -76,17 +76,8 @@ html[lang="ar"] .hero__note { font-stretch: normal; font-size: var(--t-s); }
 @keyframes cue { 0%, 100% { transform: translateY(-6px); opacity: .4; } 50% { transform: translateY(2px); opacity: 1; } }
 html[lang="ar"] .hero__cue { font-stretch: normal; font-size: var(--t-s); }
 
-/* first project's title card: in motion it rises over the hero's final render frame */
-.rcc-head { padding: var(--s-sec) var(--m) 0; display: grid; gap: 1.3rem; }
-.rcc-head .project__summary { color: var(--fg-2); }
-.motion .rcc-head {
-  position: relative; z-index: 4; margin-block-start: -100vh; min-height: 100vh; padding-block: 0 calc(var(--m) * 1.1);
-  align-content: end; color: #F3F5F7; --fg-2: rgba(243, 245, 247, .8);
-}
-.no-webgl .rcc-head { margin-block-start: 0; min-height: 0; padding-block-start: var(--s-sec); }
-
 @media (max-width: 760px) {
-  .motion .hero__track { height: 540vh; }
+  .motion .hero__track { height: 280vh; }
   .hero__story { inset-inline-end: var(--m); width: auto; }
   .hero__steps { inset-inline-start: var(--m); width: auto; }
   .hero__byline { gap: .2rem 1rem; }

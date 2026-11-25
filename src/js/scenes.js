@@ -12,31 +12,54 @@ export function initScenes(ctx) {
     onUpdate: (s) => onUpdate(s.progress), onRefresh: (s) => onUpdate(s.progress),
   });
 
-  // ── Mall: seven plans become an exploded axonometric, then are read level by level ──
+  const scrollToY = (y) => (ctx.lenis ? ctx.lenis.scrollTo(y, { duration: 0.9 }) : window.scrollTo(0, y));
+
+  // ── Mall: the building is assembled level by level, bottom up. Each plan drops onto the one below and is read
+  //    on top of the stack, large and tilted on the diagonal; the camera rises with it, then pulls back to show
+  //    the whole exploded axonometric. Every plate opens full size in the viewer. ──
   const stack = q('[data-stack]');
   if (stack) {
     const model = q('[data-stack-model]', stack);
     const levels = qa('.stack__level', model);
-    const items = qa('[data-level-item]', stack);
-    let gapPx = 60;
-    track(q('.stack__track', stack), (p) => {
-      gapPx = model.offsetWidth * 0.115;
-      const a = smooth(0, 0.24, p);
-      model.style.setProperty('--rx', `${(a * 57).toFixed(2)}deg`);
-      model.style.setProperty('--rz', `${(a * (rtl ? 31 : -31)).toFixed(2)}deg`);
-      model.style.setProperty('--sc', (1 - a * 0.14).toFixed(3));
-      model.style.setProperty('--gap', `${Math.max(1.5, a * gapPx).toFixed(1)}px`);
-      const sweep = smooth(0.27, 0.93, p) * (levels.length - 1);
-      const reading = a > 0.97;
+    const plans = qa('[data-stack-plan]', stack);
+    const chips = qa('[data-chip]', stack);
+    const n = levels.length, mid = (n - 1) / 2;
+    const A = 0.1, S0 = 0.12, S1 = 0.82, B0 = 0.86;   // tilt in · assemble · pull back
+    let cur = -1;
+    const setActive = (i) => {
+      if (i === cur) return; cur = i;
+      plans.forEach((pl, j) => pl.classList.toggle('is-on', j === i));
+      chips.forEach((c, j) => c.setAttribute('aria-pressed', String(j === i)));
+    };
+    const st = track(q('.stack__track', stack), (p) => {
+      const a = smooth(0, A, p);
+      const back = smooth(B0, 1, p);
+      const W = model.offsetWidth;
+      const gap = W * 0.24;
+      const sweep = smooth(S0, S1, p) * (n - 1);
+      model.style.setProperty('--rx', `${(a * 38 + back * 16).toFixed(2)}deg`);
+      model.style.setProperty('--rz', `${(back * (rtl ? 10 : -10)).toFixed(2)}deg`);
+      model.style.setProperty('--gap', `${gap.toFixed(1)}px`);
+      model.style.setProperty('--cam', `${(-(sweep - mid) * gap * (1 - back)).toFixed(1)}px`);
+      model.style.setProperty('--sc', (1 - back * 0.5).toFixed(3));
       levels.forEach((lv, i) => {
-        const f = Math.max(0, 1 - Math.abs(i - sweep));
-        lv.style.setProperty('--o', reading ? (0.22 + 0.78 * f).toFixed(3) : 1);
-        lv.style.setProperty('--lift', `${(reading ? f * gapPx * 0.6 : 0).toFixed(1)}px`);
-        lv.style.setProperty('--to', reading ? f.toFixed(3) : 0);
+        const d = i - sweep;                       // > 0: not placed yet
+        const o = d > 0 ? Math.max(0, 1 - d * 1.6) : Math.max(0.22, 1 + d * 0.42);
+        const oo = o + (1 - o) * back * (d > 0 ? 1 : 0.8);
+        lv.style.setProperty('--o', oo.toFixed(3));
+        lv.style.setProperty('--lift', `${(d > 0 ? d * gap * 1.4 : 0).toFixed(1)}px`);
+        lv.style.setProperty('--to', back.toFixed(3));
+        const hidden = oo < 0.04;
+        lv.style.visibility = hidden ? 'hidden' : '';
+        lv.style.pointerEvents = oo < 0.5 && back < 0.5 ? 'none' : '';
       });
-      const active = reading ? Math.round(sweep) : -1;
-      items.forEach((it, i) => it.classList.toggle('is-on', i === active));
+      setActive(Math.min(n - 1, Math.max(0, Math.round(sweep))));
     });
+    // the elevator panel jumps straight to a level
+    chips.forEach((c, i) => c.addEventListener('click', () => {
+      setActive(i);
+      scrollToY(st.start + (S0 + (i / (n - 1)) * (S1 - S0)) * (st.end - st.start) + 1);
+    }));
   }
 
   // ── Office tower: an elevator ride from the ground floor to the restaurant floor ──
@@ -59,8 +82,7 @@ export function initScenes(ctx) {
     const st = track(tr, (p) => setFloor(Math.round(smooth(0.05, 0.95, p) * 22)));
     bars.forEach((b) => b.addEventListener('click', () => {
       const f = +b.dataset.floor;
-      const target = st.start + (0.05 + (f / 22) * 0.9) * (st.end - st.start);
-      ctx.lenis ? ctx.lenis.scrollTo(target, { duration: 0.9 }) : window.scrollTo(0, target);
+      scrollToY(st.start + (0.05 + (f / 22) * 0.9) * (st.end - st.start) + 1);
     }));
   }
 
@@ -101,27 +123,14 @@ export function initScenes(ctx) {
     track(q('.wipe__track', wipe), (p) => frame.style.setProperty('--cut', `${(100 - 100 * smooth(0.18, 0.84, p)).toFixed(2)}%`));
   }
 
-  // ── Villa residences: a window opens onto the render ──
-  const win = q('[data-window]');
-  if (win) {
-    const f = q('[data-window-frame]', win);
-    track(q('.window__track', win), (p) => {
-      const t = smooth(0.02, 0.78, p);
-      f.style.setProperty('--ci', `${(24 * (1 - t)).toFixed(2)}%`);
-      f.style.setProperty('--cx', `${(31 * (1 - t)).toFixed(2)}%`);
-      f.style.setProperty('--cr', `${(6 * (1 - t)).toFixed(1)}px`);
-      f.style.setProperty('--k', (1.2 - 0.2 * t).toFixed(4));
-    });
-  }
-
   // ── Section ↔ plans: the highlighted band climbs the section as the plans change ──
   const lv = q('[data-levels]');
   if (lv) {
     const band = q('[data-levels-band]', lv);
     const names = qa('[data-level-name]', lv);
     const plans = qa('[data-levels-plan]', lv);
-    // band positions on the side-section drawing (top %, height %): basement, ground, first, roof
-    const B = [[60, 29], [40, 20], [19, 21], [2, 17]];
+    // band positions on the side-section drawing (top %, height % of the drawing): basement, ground, first, roof
+    const B = [[58, 25], [36, 22], [14, 22], [2, 19]];
     let cur = -1;
     track(q('.levels__track', lv), (p) => {
       const i = Math.min(3, Math.floor(smooth(0.06, 0.94, p) * 4));
@@ -158,7 +167,7 @@ export function initScenes(ctx) {
       strip.style.transform = 'none';
       const view = film.clientWidth - 2 * parseFloat(getComputedStyle(film).paddingInlineStart || 0);
       dist = Math.max(0, strip.scrollWidth - view);
-      tr.style.setProperty('--film-h', `${dist + window.innerHeight}px`);
+      tr.style.setProperty('--film-h', `${Math.round(dist * 0.72 + window.innerHeight)}px`);
       strip.style.transform = '';
     };
     measure();
@@ -213,10 +222,22 @@ export function initScenes(ctx) {
   // ── Depth: figures in the galleries drift at different rates ──
   const drift = [
     ['.elev__aerial', 70], ['.elev__night', -40], ['.elev__section', 90], ['.elev__site', 50],
-    ['.slv-views__f--2', 80], ['.slv-views__f--4', 60], ['.site-open__osman', 60], ['.site-open__court', 40],
-    ['.sheet--fac .sheet__site', 50], ['.villa__planr', 50], ['.villa__r1', 40],
+    ['.slv-views__f--3', 70], ['.site-open__osman', 60], ['.site-open__court', 40],
+    ['.sheet--fac .sheet__site', 50], ['.villa__planr', 50], ['.villa__r1', 40], ['.sheet__ccr3', 60], ['.sheet__ccr2', -40],
   ];
   drift.forEach(([sel, d]) => qa(sel).forEach((el) => gsap.fromTo(el, { y: d }, { y: -d, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } })));
+  // ── Project cover: the camera eases in as the reader leaves the title ──
+  const phero = q('[data-phero]');
+  if (phero) {
+    const pic = q('[data-phero-pic]', phero), text = q('[data-phero-text]', phero);
+    gsap.fromTo(pic, { scale: 1, yPercent: 0 }, { scale: 1.08, yPercent: 6, ease: 'none', scrollTrigger: { trigger: phero, start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.to(text, { opacity: 0, y: -40, ease: 'none', scrollTrigger: { trigger: phero, start: 'top top', end: '55% top', scrub: true } });
+  }
+  // ── Index: each cover opens like a shutter as it arrives ──
+  qa('.work__img, .pnext__img').forEach((el) => gsap.fromTo(el, { clipPath: 'inset(14% 0% 0% 0%)' }, {
+    clipPath: 'inset(0% 0% 0% 0%)', ease: 'none', scrollTrigger: { trigger: el, start: 'top 98%', end: 'top 55%', scrub: true },
+  }));
+
   const wire = q('.contact__wire');
   if (wire) gsap.fromTo(wire, { yPercent: 12 }, { yPercent: -8, ease: 'none', scrollTrigger: { trigger: '.contact', start: 'top bottom', end: 'bottom bottom', scrub: true } });
 }

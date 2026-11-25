@@ -44,7 +44,7 @@
   --f-ar-text: 'IBM Plex Sans Arabic', 'Archivo Variable', 'Segoe UI', Tahoma, sans-serif;
 
   /* type scale — text steps at ~1.25, display fluid */
-  --t-xs: 0.8125rem;
+  --t-xs: 0.875rem;
   --t-s: 0.9375rem;
   --t-m: clamp(1.0625rem, 1rem + 0.22vw, 1.1875rem);
   --t-l: clamp(1.25rem, 1.06rem + 0.8vw, 1.75rem);
@@ -145,9 +145,12 @@ html[lang="tr"] .project__title { max-width: 14ch; }
 .pic img.is-loaded, .no-js .pic img { opacity: 1; }
 .pic--alpha { background: none; }
 .pic--drawing img { object-fit: contain; }
-[data-tone="night"] .pic--drawing:not(.pic--sheet) img { filter: invert(.9) hue-rotate(180deg) saturate(.75); }
-/* the nearest tone wins: a light sheet nested inside a night project keeps its ink dark */
-[data-tone="night"] [data-tone]:not([data-tone="night"]) .pic--drawing:not(.pic--sheet) img { filter: none; }
+/* drawings are never inverted: at night they are pinned up as sheets of paper, so the ink stays legible */
+[data-tone="night"] .pic--drawing:not(.pic--sheet) { background: #F3F4F1; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .5); }
+[data-tone="night"] .pic--drawing:not(.pic--sheet) img { padding: 3%; }
+/* the nearest tone wins: a light section nested inside a night page prints the ink straight onto its paper */
+[data-tone="night"] [data-tone]:not([data-tone="night"]) .pic--drawing:not(.pic--sheet) { background: none; box-shadow: none; }
+[data-tone="night"] [data-tone]:not([data-tone="night"]) .pic--drawing:not(.pic--sheet) img { padding: 0; }
 
 .zoom {
   display: block; width: 100%; padding: 0; border: 0; margin: 0; background: none; cursor: zoom-in;

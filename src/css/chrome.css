@@ -127,10 +127,11 @@ html[dir="rtl"] .viewer__btn[data-viewer-prev] svg, html[dir="rtl"] .viewer__btn
 }
 
 .toast {
-  position: fixed; inset-block-end: 24px; inset-inline-start: 50%; transform: translate(-50%, 140%); z-index: 95;
+  position: fixed; inset-block-end: 24px; inset-inline-start: 50%; transform: translate(-50%, calc(100% + 40px)); z-index: 95;
   padding: .7em 1.2em; border-radius: 999px; background: var(--vellum); color: var(--graphite); font-size: var(--t-s);
-  transition: transform .45s var(--ease); pointer-events: none;
+  transition: transform .45s var(--ease), visibility 0s .45s; pointer-events: none; visibility: hidden;
 }
-html[dir="rtl"] .toast { transform: translate(50%, 140%); }
+html[dir="rtl"] .toast { transform: translate(50%, calc(100% + 40px)); }
+.toast.is-on { visibility: visible; transition: transform .45s var(--ease), visibility 0s; }
 .toast.is-on { transform: translate(-50%, 0); }
 html[dir="rtl"] .toast.is-on { transform: translate(50%, 0); }

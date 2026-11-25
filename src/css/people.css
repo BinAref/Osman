@@ -76,7 +76,8 @@ html[lang="ar"] .about__bio { font-stretch: normal; line-height: 1.85; font-size
 /* ───────── Contact (evening again) ───────── */
 .contact { position: relative; overflow: hidden; padding: var(--s-sec) var(--m) 0; min-height: 100vh; display: grid; grid-template-rows: 1fr auto; }
 .contact__wire { position: absolute; inset-block-start: 6vh; inset-inline-end: -4vw; width: min(62vw, 900px); opacity: .16; pointer-events: none; }
-.contact__wire .pic img { filter: invert(1); }
+.contact__wire .pic { background: none !important; box-shadow: none !important; }
+.contact__wire .pic img { filter: invert(1); padding: 0 !important; }
 html[dir="rtl"] .contact__wire { transform: scaleX(-1); }
 .contact__body { position: relative; display: grid; gap: 1.6rem; align-content: start; }
 .contact__email { font-size: clamp(2.2rem, .6rem + 7vw, 8.5rem); font-stretch: 62%; font-weight: 760; line-height: .95; letter-spacing: -0.012em; overflow-wrap: anywhere; margin-block: 1rem 1.5rem; }

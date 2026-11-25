@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>عثمان أسامة عبدالله محمد — السيرة الذاتية</title>
+<meta name="author" content="Osman Osama Abdalla Mohamed">
+<meta name="description" content="السيرة الذاتية لعثمان أسامة عبدالله محمد، مهندس معماري">
+<style>
+/* fonts are inlined here by scripts/cv.mjs */
+{{FONTS}}
+@page { size: A4; margin: 0; }
+:root {
+  --ink: #1F2529; --ink-2: #48525A; --ink-3: #78828A;
+  --blue: #0E1A2B; --lamp: #E9A54B; --line: #CDD3D2; --panel: #EEF1EF;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: 'Plex', 'Archivo', sans-serif; font-size: 9.25pt; line-height: 1.68; color: var(--ink);
+  -webkit-print-color-adjust: exact; print-color-adjust: exact; font-kerning: normal;
+}
+.page { width: 210mm; height: 297mm; padding: 12.5mm 14mm 10mm; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+.ltr { direction: ltr; unicode-bidi: isolate; }
+bdi { unicode-bidi: isolate; }
+
+/* ── header ── */
+.top { display: grid; grid-template-columns: minmax(0, 1fr) 30mm; column-gap: 9mm; align-items: end; padding-bottom: 4.6mm; position: relative; }
+.top::before { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: .7pt; background: var(--ink); }
+.top::after { content: ''; position: absolute; right: 0; bottom: -1.1pt; width: 24mm; height: 2.9pt; background: var(--lamp); }
+.name { font-family: 'Plex', 'Archivo'; font-weight: 700; font-size: 25pt; line-height: 1.3; color: var(--blue); margin: 0; letter-spacing: 0; }
+.latin { font-family: 'Archivo'; font-weight: 500; font-size: 9.4pt; color: var(--ink-3); margin: .2mm 0 0; letter-spacing: .02em; }
+.role { font-family: 'Plex', 'Archivo'; font-weight: 500; font-size: 13pt; color: var(--ink-2); margin: 1.6mm 0 2.8mm; }
+.contact { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 1mm 8mm; font-size: 9.4pt; }
+.contact li { display: inline-flex; gap: 2.2mm; align-items: baseline; }
+.contact .k { color: var(--ink-3); font-weight: 500; }
+.contact .v { font-weight: 500; color: var(--ink); text-decoration: none; }
+.photo { position: relative; width: 30mm; height: 33mm; margin-bottom: .5mm; }
+.photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; filter: grayscale(.12); }
+.photo::before, .photo::after { content: ''; position: absolute; width: 4mm; height: 4mm; border: .6pt solid var(--ink); }
+.photo::before { top: -1.6mm; right: -1.6mm; border-width: .6pt .6pt 0 0; }
+.photo::after { bottom: -1.6mm; left: -1.6mm; border-width: 0 0 .6pt .6pt; }
+
+/* ── body ── */
+.cols { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) 55mm; column-gap: 8mm; margin-top: 5.5mm; }
+.side { background: var(--panel); padding: 5mm 5mm 4mm; align-self: stretch; }
+section { margin-bottom: 3.9mm; }
+section:last-child { margin-bottom: 0; }
+h2 {
+  font-family: 'Plex', 'Archivo'; font-weight: 700; font-size: 11.4pt; line-height: 1.4; color: var(--blue);
+  margin: 0 0 1.8mm; display: flex; align-items: center; gap: 2.2mm;
+}
+h2 .lv { width: 3.2mm; height: 2.3mm; flex: none; fill: none; stroke: var(--blue); stroke-width: 1.3; }
+h2::after { content: ''; flex: 1; height: .5pt; background: var(--line); }
+.side h2::after { background: #C3CAC8; }
+.entry { margin-bottom: 2.6mm; break-inside: avoid; }
+.entry:last-child { margin-bottom: 0; }
+.entry h3 { font-family: 'Plex', 'Archivo'; font-weight: 600; font-size: 9.9pt; line-height: 1.55; margin: 0; color: var(--ink); }
+.entry h3 .sep { color: var(--ink-3); font-weight: 400; margin: 0 1.2mm; }
+.org { font-size: 9.1pt; font-weight: 500; color: var(--ink-2); margin: 0; line-height: 1.6; }
+.tag { display: inline-block; font-size: 8.3pt; font-weight: 500; color: var(--ink-2); border: .5pt solid #B7BFBE; border-radius: 1mm; padding: 0 1.6mm; margin-inline-start: 1.6mm; line-height: 1.55; vertical-align: .3mm; }
+.entry p, .entry li { margin: 0; color: var(--ink); }
+.entry p { margin-top: .7mm; }
+.points { list-style: none; margin: .8mm 0 0; padding: 0; }
+.points li { position: relative; padding-right: 3.6mm; }
+.points li + li { margin-top: .6mm; }
+.points li::before { content: ''; position: absolute; right: .3mm; top: .86em; width: 1.7mm; height: .6pt; background: var(--ink-3); }
+.cert { display: inline-block; margin-top: .4mm; font-weight: 600; font-size: 9pt; color: var(--blue); }
+.cert::before { content: ''; display: inline-block; width: 1.5mm; height: 1.5mm; border: .6pt solid currentColor; transform: rotate(45deg); margin-left: 1.8mm; vertical-align: .25mm; }
+.summary { font-size: 9.6pt; line-height: 1.8; margin: 0; }
+.training { display: grid; grid-template-columns: 1fr; }
+
+.side .block { margin: 0; }
+.edu-title { font-weight: 600; font-size: 9.9pt; margin: 0; line-height: 1.6; }
+.edu-org { font-size: 9.2pt; color: var(--ink-2); margin: .3mm 0 0; line-height: 1.6; }
+.years { display: inline-block; margin-top: 1mm; font-weight: 600; font-size: 9.2pt; color: var(--blue); }
+.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 1.4mm 1.4mm; direction: ltr; justify-content: flex-end; }
+.chips li { font-size: 8.7pt; font-weight: 500; line-height: 1.5; padding: .5mm 2.1mm; border: .5pt solid #AEB6B5; border-radius: 4mm; background: #F7F8F7; }
+.list { list-style: none; margin: 0; padding: 0; }
+.list li { position: relative; padding-right: 3.4mm; line-height: 1.75; }
+.list li::before { content: ''; position: absolute; right: .2mm; top: .82em; width: 1.3mm; height: 1.3mm; border: .6pt solid var(--ink-2); transform: rotate(45deg); }
+.note { font-size: 8.4pt; color: var(--ink-3); margin: 2mm 0 0; line-height: 1.6; }
+
+.foot { margin-top: 4mm; padding-top: 2.2mm; border-top: .5pt solid var(--line); display: flex; justify-content: space-between; font-size: 8pt; color: var(--ink-3); }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <div>
+      <h1 class="name">عثمان أسامة عبدالله محمد</h1>
+      <p class="latin"><bdi>Osman Osama Abdalla Mohamed</bdi></p>
+      <p class="role">مهندس معماري</p>
+      <ul class="contact">
+        <li><span class="k">الهاتف</span><a class="v ltr" href="tel:+905526051447">+90 552 605 1447</a></li>
+        <li><span class="k">البريد الإلكتروني</span><a class="v ltr" href="mailto:kas.omer2015@gmail.com">kas.omer2015@gmail.com</a></li>
+      </ul>
+    </div>
+    <figure class="photo" style="margin:0"><img src="{{PHOTO}}" alt="صورة عثمان أسامة عبدالله محمد"></figure>
+  </header>
+
+  <div class="cols">
+    <main>
+      <section>
+        <h2><svg class="lv" viewBox="0 0 14 10" aria-hidden="true"><path d="M1 1h12L7 9z"/></svg>الملخص المهني</h2>
+        <p class="summary">مهندس معماري يمتلك خبرة عملية في التصميم المعماري والرسومات ثنائية الأبعاد والنمذجة ثلاثية الأبعاد والإظهار المعماري، ويتقن برامج <bdi>AutoCAD</bdi> و<bdi>Revit</bdi> و<bdi>SketchUp</bdi>، إلى جانب خبرة ميدانية في الإشراف على مواقع البناء والفحص المعماري ومتابعة العيوب وضبط الجودة.</p>
+      </section>
+
+      <section>
+        <h2><svg class="lv" viewBox="0 0 14 10" aria-hidden="true"><path d="M1 1h12L7 9z"/></svg>الخبرة المهنية</h2>
+        <div class="entry">
+          <h3>مصمم معماري<span class="sep">|</span><bdi>MURATLI MİMARLIK</bdi>، تركيا</h3>
+          <p class="org">عمل مهني</p>
+          <ul class="points">
+            <li>عملتُ مصممًا معماريًا على مشاريع معمارية حقيقية، وأسهمتُ في إعداد الرسومات ثنائية الأبعاد، وتطوير التصميم، ومراجعة الرسومات، وتصميم الواجهات، والنمذجة ثلاثية الأبعاد، والإظهار المعماري.</li>
+            <li>استخدمتُ <bdi>AutoCAD</bdi> و<bdi>SketchUp</bdi> و<bdi>Lumion</bdi> لتطوير تصاميم المشاريع وعرضها.</li>
+          </ul>
+        </div>
+        <div class="entry">
+          <h3>مشرف معماري في الموقع<span class="sep">|</span><bdi>SELAHATTİN KALDIRIM İNŞAAT</bdi> – بايبورت، تركيا</h3>
+          <ul class="points">
+            <li>خبرة مهنية في مشاريع الإسكان التابعة لإدارة الإسكان الجماعي التركية (<bdi>TOKİ</bdi>)، شملت الفحوص المعمارية، ومتابعة العيوب، والإشراف على فرق التشطيبات، وضبط الجودة.</li>
+            <li>أعددتُ التقارير الفنية وسجلات الكميات باستخدام <bdi>Excel</bdi>، وصمّمتُ مداخل مصاعد موحّدة باستخدام <bdi>SketchUp</bdi>.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2><svg class="lv" viewBox="0 0 14 10" aria-hidden="true"><path d="M1 1h12L7 9z"/></svg>التدريب والدورات</h2>
+        <div class="training">
+          <div class="entry">
+            <h3>تدريب مكتبي<span class="sep">|</span>النمذجة المعمارية ودعم التصميم – شركة <bdi>SAK</bdi></h3>
+            <p>أنشأتُ نماذج معمارية ثلاثية الأبعاد في <bdi>Revit</bdi> انطلاقًا من رسومات ثنائية الأبعاد لمشاريع فلل سكنية، وعدّلتُ النماذج وفق ملاحظات المعماري الأول، مع التركيز على الدقة ومتطلبات التصميم.</p>
+          </div>
+          <div class="entry">
+            <h3>تدريب <bdi>Revit</bdi><span class="sep">|</span>النمذجة المعمارية ثلاثية الأبعاد</h3>
+            <p>تدريب عملي يركّز على النمذجة ثلاثية الأبعاد للفلل السكنية، وتحويل الرسومات ثنائية الأبعاد إلى نماذج معمارية ثلاثية الأبعاد.</p>
+          </div>
+          <div class="entry">
+            <h3>تدريب ميداني<span class="sep">|</span>الإشراف على التنفيذ – شركة <bdi>SAK</bdi></h3>
+            <p>اكتسبتُ خبرة عملية في تنفيذ الفلل السكنية، بما في ذلك أعمال اللياسة والعزل والرخام والنوافذ الألمنيوم، وساعدتُ في متابعة الكميات ومراجعة الرسومات والأبعاد والتنفيذ في الموقع.</p>
+          </div>
+          <div class="entry">
+            <h3>تدريب <bdi>AutoCAD</bdi><span class="sep">|</span>الرسم المعماري</h3>
+            <p>تدريب متخصص في الرسم المعماري ثنائي الأبعاد والرسومات الفنية. <span class="cert">شهادة كفاءة</span></p>
+          </div>
+          <div class="entry">
+            <h3>تدريب <bdi>Photoshop</bdi><span class="sep">|</span>الإظهار المعماري والتصميم الجرافيكي</h3>
+            <p>تدريب في الإظهار المعماري والتصميم الجرافيكي وعرض المشاريع. <span class="cert">شهادة إتمام</span></p>
+          </div>
+          <div class="entry">
+            <h3>مشاريع معمارية مختارة<span class="sep">|</span>التصميم والنمذجة ثنائية وثلاثية الأبعاد والإظهار</h3>
+            <p>صمّمتُ قرية متكاملة لسكن كبار السن والحياة المجتمعية، وطوّرتُ مشاريع فلل سكنية، بدءًا من الرسومات المعمارية ثنائية الأبعاد وتطوير التصميم في <bdi>AutoCAD</bdi>، وصولًا إلى النمذجة ثلاثية الأبعاد والإظهار باستخدام <bdi>Revit</bdi> و<bdi>SketchUp</bdi> و<bdi>D5 Render</bdi>.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside class="side">
+      <section>
+        <h2><svg class="lv" viewBox="0 0 14 10" aria-hidden="true"><path d="M1 1h12L7 9z"/></svg>التعليم</h2>
+        <div class="block">
+          <p class="edu-title">بكالوريوس العمارة</p>
+          <p class="edu-org">جامعة إسطنبول جيليشيم<br>إسطنبول، تركيا</p>
+          <span class="years ltr">2021 – 2025</span>
+        </div>
+      </section>
+      <section>
+        <h2><svg class="lv" viewBox="0 0 14 10" aria-hidden="true"><path d="M1 1h12L7 9z"/></svg>التدريب المهني والشهادات</h2>
+        <ul class="chips">
+          <li>AutoCAD</li><li>Photoshop</li><li>3ds Max</li><li>Revit</li><li>D5 Render</li><li>SketchUp</li><li>Canva</li><li>Lumion</li><li>Excel</li>
+        </ul>
+      </section>
+      <section>
+        <h2><svg class="lv" viewBox="0 0 14 10" aria-hidden="true"><path d="M1 1h12L7 9z"/></svg>اللغات</h2>
+        <ul class="list"><li>العربية</li><li>الإنجليزية</li><li>التركية</li></ul>
+      </section>
+      <section>
+        <h2><svg class="lv" viewBox="0 0 14 10" aria-hidden="true"><path d="M1 1h12L7 9z"/></svg>المهارات الشخصية</h2>
+        <ul class="list"><li>حل المشكلات</li><li>التفكير الإبداعي</li><li>العمل الجماعي</li><li>إدارة المشاريع</li></ul>
+      </section>
+    </aside>
+  </div>
+</div>
+</body>
+</html>
