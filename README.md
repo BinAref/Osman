@@ -5,14 +5,25 @@ A single scroll-driven journey through his work: his mall site plan rises into a
 then the projects follow as scenes — plans that explode into axonometrics, an elevator ride through the office tower,
 drawings that wipe into renders, paper models that turn into a building, and the construction-site record.
 
-## نشر الموقع بسرعة (بالعربية)
+## النشر على GitHub Pages (بالعربية)
 
-الموقع جاهز للنشر كما هو: كل ملفاته المبنية موجودة في مجلد `docs/`.
+الموقع جاهز للنشر كما هو: كل ملفاته المبنية موجودة في مجلد `docs/`، والمستودع عام فخدمة Pages مجانية.
 
-- **GitHub Pages:** بعد دمج هذا الفرع في `main`، افتح إعدادات المستودع ← Pages ← اختر الفرع `main` والمجلد `/docs` ← حفظ.
-- **Netlify أو أي استضافة ثابتة:** ارفع محتوى مجلد `docs/` كما هو (سحب وإفلات).
-- الصفحة العربية على `/ar/`، والتركية على `/tr/`، والإنجليزية على الجذر `/`. عند أول زيارة للجذر يتبع الموقع لغة المتصفح (العربية أو التركية).
-- لتعديل أي نص (بالعربية أو الإنجليزية أو التركية): الملف `src/content/data.js`، ثم `npm run build`.
+1. افتح المستودع على GitHub ← **Settings** ← **Pages**.
+2. في **Build and deployment** اختر **Source: Deploy from a branch**.
+3. اختر الفرع `ccr-5a3eab91-ubtj83` (أو `main` إذا دُمج فيه لاحقًا) والمجلد **`/docs`** ثم **Save**.
+4. بعد دقيقة أو دقيقتين يظهر الموقع على: **https://binaref.github.io/Osman/**
+   - العربية: `/Osman/ar/` — التركية: `/Osman/tr/` — الإنجليزية: `/Osman/`.
+   - عند أول زيارة للصفحة الرئيسية يتبع الموقع لغة المتصفح (العربية أو التركية).
+
+لتعديل أي نص بأيٍّ من اللغات الثلاث: الملف `src/content/data.js`، ثم `npm run build` وارفع التغييرات.
+عند الانتقال إلى نطاق خاص لاحقًا: `SITE_URL=https://your.domain/ npm run build` لتحديث روابط المشاركة والخريطة.
+
+## Publishing on GitHub Pages
+
+Settings → Pages → *Deploy from a branch* → branch `ccr-5a3eab91-ubtj83` (or `main` once merged) → folder `/docs` → Save.
+The site is then served at **https://binaref.github.io/Osman/**. The build defaults to that address for canonical, `hreflang`,
+social-preview and sitemap URLs; set `SITE_URL` to change it (an empty value emits relative URLs only).
 
 ## Run and build
 
@@ -22,8 +33,7 @@ npm run build     # renders docs/index.html, docs/ar/, docs/tr/ and bundles JS/C
 npm run serve     # http://localhost:4173/
 ```
 
-`docs/` is the complete static site (commit it; GitHub Pages can serve it from `/docs`).
-Set `SITE_URL=https://your.domain/ npm run build` to emit absolute `hreflang` and social-preview URLs.
+`docs/` is the complete static site — commit it after every build; GitHub Pages serves it from `/docs`.
 
 ## Where things are
 

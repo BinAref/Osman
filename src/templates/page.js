@@ -604,6 +604,7 @@ ${lang === 'en' ? `<script>try{if(!localStorage.getItem('om-lang')&&!location.ha
 <meta property="og:locale" content="${lang === 'ar' ? 'ar_AR' : lang === 'tr' ? 'tr_TR' : 'en_US'}">
 ${og}
 <meta name="twitter:card" content="summary_large_image">
+${siteUrl ? `<link rel="canonical" href="${siteUrl}${LANG_META[lang].path}">` : ''}
 ${alt}<link rel="alternate" hreflang="x-default" href="${siteUrl || href('en')}">
 <script type="application/ld+json">${JSON.stringify({
   '@context': 'https://schema.org', '@type': 'Person',

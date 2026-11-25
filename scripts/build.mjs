@@ -8,7 +8,8 @@ import { createHash } from 'node:crypto';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const OUT = path.join(ROOT, 'docs');
-const SITE_URL = process.env.SITE_URL || ''; // e.g. https://example.com/ — enables absolute hreflang/og URLs
+// Published on GitHub Pages; override with SITE_URL=https://your.domain/ (or SITE_URL= to emit relative URLs only)
+const SITE_URL = process.env.SITE_URL ?? 'https://binaref.github.io/Osman/';
 const watch = process.argv.includes('--watch');
 
 async function buildAssets() {
