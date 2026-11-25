@@ -1,0 +1,25 @@
+{
+  "name": "osman-mohamed-architect",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal website of architect Osman Mohamed — trilingual (AR/EN/TR) scroll-driven portfolio.",
+  "type": "module",
+  "scripts": {
+    "images": "node scripts/images.mjs",
+    "build": "node scripts/build.mjs",
+    "serve": "node scripts/serve.mjs",
+    "dev": "node scripts/build.mjs --watch"
+  },
+  "dependencies": {
+    "gsap": "3.15.1",
+    "lenis": "1.3.28",
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "@fontsource-variable/archivo": "5.3.0",
+    "@fontsource-variable/noto-kufi-arabic": "5.3.0",
+    "@fontsource/ibm-plex-sans-arabic": "5.3.0",
+    "esbuild": "0.28.2",
+    "sharp": "0.35.5"
+  }
+}

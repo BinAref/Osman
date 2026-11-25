@@ -1,0 +1,5 @@
+node_modules/
+assets-src/sr/
+assets-src/crops/
+assets-src/cutouts/
+.DS_Store

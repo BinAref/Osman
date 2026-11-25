@@ -1,0 +1,17 @@
+@import './base.css';
+@import './chrome.css';
+@import './hero.css';
+@import './projects.css';
+@import './people.css';
+
+/* light-cycle engine active: sections let the page's live light through */
+.tone-js [data-tone] { background: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+@media print {
+  .hud, .gauge, .menu, .viewer, .hero__canvas, .hero__labels, .hero__cue { display: none !important; }
+  [data-tone] { background: #fff !important; color: #000 !important; }
+}

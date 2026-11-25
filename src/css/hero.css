@@ -1,0 +1,94 @@
+/* ───────── Hero: site plan → massing → blue hour → render ─────────
+   Static by default (night render + name). With .motion the stage becomes sticky over a long track and
+   the WebGL scene takes over; .no-webgl falls back to the render. */
+.hero { position: relative; }
+.hero__stage { position: relative; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; isolation: isolate; }
+.hero__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
+.hero__fallback, .hero__render { position: absolute; inset: 0; }
+.hero__fallback .pic, .hero__render .pic { height: 100%; aspect-ratio: auto; }
+.hero__fallback::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(8, 14, 24, .84) 6%, rgba(8, 14, 24, .08) 62%); }
+.hero__render { opacity: 0; }
+.hero__shade { position: absolute; inset: 0; pointer-events: none; opacity: 0; background: linear-gradient(to top, rgba(8, 14, 24, .86), rgba(8, 14, 24, 0) 58%); }
+.hero__story, .hero__steps, .hero__note, .hero__cue, .hero__labels { display: none; }
+
+/* calm cover (no motion, or no WebGL) */
+html:not(.motion) .hero__stage, .no-webgl .hero__stage { color: #F3F5F7; --fg: #F3F5F7; --fg-2: rgba(243, 245, 247, .76); --fg-3: rgba(243, 245, 247, .5); --line: rgba(243, 245, 247, .2); --bg: #0E1A2B; }
+
+.hero__intro { position: absolute; inset-inline: var(--m); inset-block-end: calc(var(--m) * .9); z-index: 3; }
+.hero__name {
+  font-size: var(--t-d); font-stretch: 62%; font-weight: 860; line-height: .82; letter-spacing: -0.018em; text-transform: uppercase;
+  margin-inline-start: -0.03em;
+}
+.hero__word { display: block; overflow: hidden; padding-block-end: .02em; }
+.hero__word > span { display: inline-block; transform-origin: 50% 100%; }
+html[lang="ar"] .hero__name { font-family: var(--f-ar-head); text-transform: none; font-weight: 900; font-size: calc(var(--t-d) * .6); line-height: 1.22; letter-spacing: 0; }
+html[lang="ar"] .hero__word { padding-block-end: .1em; }
+.hero__byline { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 2rem; margin-block-start: clamp(14px, 2.4vh, 30px); }
+.hero__role { font-size: var(--t-l); font-stretch: 112%; font-weight: 520; }
+.hero__tagline { font-size: var(--t-l); font-stretch: 94%; font-weight: 360; color: var(--fg-2); max-width: 36ch; }
+html[lang="ar"] .hero__role, html[lang="ar"] .hero__tagline { font-stretch: normal; }
+
+/* ───── motion: scroll-driven build ───── */
+.motion .hero__track { height: 640vh; }
+.motion .hero__stage { position: sticky; top: 0; }
+.motion .hero__canvas { display: block; }
+.motion .hero__fallback { display: none; }
+.no-webgl .hero__fallback { display: block; }
+.no-webgl .hero__canvas { display: none; }
+.motion .hero__story, .motion .hero__steps, .motion .hero__note, .motion .hero__cue, .motion .hero__labels { display: block; }
+.no-webgl .hero__labels, .no-webgl .hero__note { display: none; }
+
+.hero__labels { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.hero__label {
+  position: absolute; top: 0; left: 0; white-space: nowrap;
+  font-size: var(--t-xs); font-stretch: 118%; font-weight: 540; letter-spacing: .02em; color: var(--fg);
+  padding: .15em .5em; background: color-mix(in srgb, var(--bg) 72%, transparent); opacity: 0; will-change: transform, opacity;
+}
+html[lang="ar"] .hero__label { font-stretch: normal; letter-spacing: 0; font-size: var(--t-s); }
+.hero__label--void { font-weight: 660; }
+
+.hero__story {
+  position: absolute; z-index: 3; inset-block-start: calc(var(--hud-h) + 5vh); inset-inline-start: var(--m);
+  width: min(34ch, 40vw); opacity: 0;
+}
+.hero__statement { font-size: var(--t-l); line-height: 1.38; font-stretch: 92%; font-weight: 400; text-wrap: pretty; }
+html[lang="ar"] .hero__statement { font-stretch: normal; line-height: 1.82; font-size: calc(var(--t-l) * .9); }
+.hero__statement .w { opacity: .16; transition: opacity .25s linear; }
+.hero__statement .w.is-on { opacity: 1; }
+
+.hero__steps { position: absolute; z-index: 3; inset-inline-end: var(--m); inset-block-end: calc(var(--m) * .9); width: min(30ch, 36vw); opacity: 0; }
+.hero__step { display: grid; grid-template-columns: 2rem 1fr; column-gap: .4rem; padding-block: .55rem; color: var(--fg-3); transition: color .4s; }
+.hero__step + .hero__step { border-block-start: 1px solid var(--line); }
+.hero__step-n { font-size: var(--t-xs); font-stretch: 118%; font-variant-numeric: tabular-nums; padding-block-start: .22em; }
+.hero__step-t { font-size: var(--t-s); font-stretch: 108%; font-weight: 620; }
+.hero__step-c { grid-column: 2; font-size: var(--t-s); line-height: 1.45; max-height: 0; overflow: hidden; opacity: 0; transition: max-height .6s var(--ease), opacity .5s; }
+.hero__step.is-on { color: var(--fg); }
+.hero__step.is-on .hero__step-c { max-height: 7em; opacity: 1; margin-block-start: .3rem; color: var(--fg-2); }
+html[lang="ar"] .hero__step-t, html[lang="ar"] .hero__step-n { font-stretch: normal; }
+
+.hero__note { position: absolute; z-index: 3; inset-inline-start: var(--m); inset-block-end: calc(var(--m) * .9); font-size: var(--t-xs); font-stretch: 116%; color: var(--fg-2); opacity: 0; max-width: 40ch; }
+html[lang="ar"] .hero__note { font-stretch: normal; font-size: var(--t-s); }
+.hero__cue { position: absolute; z-index: 3; inset-inline-end: var(--m); inset-block-start: calc(100% - var(--m) * .9 - 40px); display: flex; align-items: flex-end; gap: .8rem; font-size: var(--t-xs); font-stretch: 118%; color: var(--fg-2); }
+.hero__cue svg { width: 12px; height: 40px; fill: none; stroke: currentColor; stroke-width: 1.2; animation: cue 2.4s var(--ease-io) infinite; }
+@keyframes cue { 0%, 100% { transform: translateY(-6px); opacity: .4; } 50% { transform: translateY(2px); opacity: 1; } }
+html[lang="ar"] .hero__cue { font-stretch: normal; font-size: var(--t-s); }
+
+/* first project's title card: in motion it rises over the hero's final render frame */
+.rcc-head { padding: var(--s-sec) var(--m) 0; display: grid; gap: 1.3rem; }
+.rcc-head .project__summary { color: var(--fg-2); }
+.motion .rcc-head {
+  position: relative; z-index: 4; margin-block-start: -100vh; min-height: 100vh; padding-block: 0 calc(var(--m) * 1.1);
+  align-content: end; color: #F3F5F7; --fg-2: rgba(243, 245, 247, .8);
+}
+.no-webgl .rcc-head { margin-block-start: 0; min-height: 0; padding-block-start: var(--s-sec); }
+
+@media (max-width: 760px) {
+  .motion .hero__track { height: 540vh; }
+  .hero__story { inset-inline-end: var(--m); width: auto; }
+  .hero__steps { inset-inline-start: var(--m); width: auto; }
+  .hero__byline { gap: .2rem 1rem; }
+  .hero__role, .hero__tagline { font-size: var(--t-m); }
+  .hero__cue span { display: none; }
+  .motion .hero__note { display: none; }
+}
+@media (max-height: 640px) and (min-width: 761px) { .hero__story { display: none !important; } }

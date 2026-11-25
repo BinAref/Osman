@@ -1,0 +1,182 @@
+/* ───────── Fonts (self-hosted, subset by script) ───────── */
+@font-face {
+  font-family: 'Archivo Variable'; font-style: normal; font-display: swap;
+  font-weight: 100 900; font-stretch: 62% 125%;
+  src: url(fonts/archivo-latin-standard-normal.woff2) format('woff2-variations'), url(fonts/archivo-latin-standard-normal.woff2) format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: 'Archivo Variable'; font-style: normal; font-display: swap;
+  font-weight: 100 900; font-stretch: 62% 125%;
+  src: url(fonts/archivo-latin-ext-standard-normal.woff2) format('woff2-variations'), url(fonts/archivo-latin-ext-standard-normal.woff2) format('woff2');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Noto Kufi Arabic Variable'; font-style: normal; font-display: swap; font-weight: 100 900;
+  src: url(fonts/noto-kufi-arabic-arabic-wght-normal.woff2) format('woff2-variations'), url(fonts/noto-kufi-arabic-arabic-wght-normal.woff2) format('woff2');
+  unicode-range: U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC;
+}
+@font-face { font-family: 'IBM Plex Sans Arabic'; font-style: normal; font-display: swap; font-weight: 400; src: url(fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2) format('woff2'); unicode-range: U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC; }
+@font-face { font-family: 'IBM Plex Sans Arabic'; font-style: normal; font-display: swap; font-weight: 500; src: url(fonts/ibm-plex-sans-arabic-arabic-500-normal.woff2) format('woff2'); unicode-range: U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC; }
+@font-face { font-family: 'IBM Plex Sans Arabic'; font-style: normal; font-display: swap; font-weight: 600; src: url(fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2) format('woff2'); unicode-range: U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC; }
+
+/* ───────── Tokens ─────────
+   Blue hour: architecture is photographed when sky and interior light balance.
+   The page moves through a day; these are its lights. */
+:root {
+  --vellum: #E3E7E4;      /* tracing paper */
+  --graphite: #22282D;    /* lead pencil */
+  --blue-hour: #0E1A2B;   /* the sky after sunset */
+  --dusk: #2E4466;
+  --lamp: #F1B86A;        /* interior light — only for things that are lit */
+  --mortar: #8E9794;
+
+  --bg: var(--vellum);
+  --fg: var(--graphite);
+  --fg-2: color-mix(in srgb, var(--fg) 66%, var(--bg));
+  --fg-3: color-mix(in srgb, var(--fg) 40%, var(--bg));
+  --line: color-mix(in srgb, var(--fg) 16%, transparent);
+  --line-2: color-mix(in srgb, var(--fg) 42%, transparent);
+  --lit: var(--graphite);  /* active accent: graphite by day, lamplight by night */
+
+  --f-sans: 'Archivo Variable', 'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-ar-head: 'Noto Kufi Arabic Variable', 'Noto Kufi Arabic', 'Archivo Variable', sans-serif;
+  --f-ar-text: 'IBM Plex Sans Arabic', 'Archivo Variable', 'Segoe UI', Tahoma, sans-serif;
+
+  /* type scale — text steps at ~1.25, display fluid */
+  --t-xs: 0.8125rem;
+  --t-s: 0.9375rem;
+  --t-m: clamp(1.0625rem, 1rem + 0.22vw, 1.1875rem);
+  --t-l: clamp(1.25rem, 1.06rem + 0.8vw, 1.75rem);
+  --t-xl: clamp(1.8rem, 1.25rem + 2.2vw, 3.35rem);
+  --t-2xl: clamp(2.7rem, 1.3rem + 5.6vw, 7.25rem);
+  --t-d: clamp(4.3rem, 0.8rem + 16.4vw, 19.5rem);
+
+  --m: clamp(16px, 4.4vw, 76px);   /* outer margin */
+  --g: clamp(14px, 1.7vw, 28px);   /* gutter */
+  --s-sec: clamp(96px, 16vh, 220px);/* space between scenes */
+  --hud-h: 64px;
+  --ease: cubic-bezier(.22, .68, .12, 1);
+  --ease-io: cubic-bezier(.65, 0, .35, 1);
+}
+@media (max-width: 720px) { :root { --hud-h: 56px; } }
+
+/* tones — static fallback before/without the light-cycle script */
+[data-tone="vellum"]    { --tone-bg: #E3E7E4; --tone-fg: #22282D; }
+[data-tone="night"]     { --tone-bg: #0E1A2B; --tone-fg: #E8ECEF; }
+[data-tone="dawn"]      { --tone-bg: #D9DFE3; --tone-fg: #22282D; }
+[data-tone="morning"]   { --tone-bg: #E4E9EC; --tone-fg: #22282D; }
+[data-tone="day"]       { --tone-bg: #EBECE8; --tone-fg: #23292D; }
+[data-tone="bright"]    { --tone-bg: #F1F2F0; --tone-fg: #22282D; }
+[data-tone="concrete"]  { --tone-bg: #D4D8D7; --tone-fg: #1F2428; }
+[data-tone="landscape"] { --tone-bg: #DFE4D9; --tone-fg: #1E2620; }
+[data-tone="overcast"]  { --tone-bg: #CBD0D3; --tone-fg: #1C2125; }
+html:not(.tone-js) [data-tone] { --bg: var(--tone-bg); --fg: var(--tone-fg); background: var(--bg); color: var(--fg); }
+[data-tone="night"] { --lit: var(--lamp); }
+
+/* ───────── Base ───────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: var(--hud-h); }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+body {
+  margin: 0; min-height: 100vh;
+  background: var(--bg); color: var(--fg);
+  font-family: var(--f-sans); font-size: var(--t-m); line-height: 1.56; font-stretch: 100%; font-weight: 400;
+  font-kerning: normal; font-feature-settings: 'kern', 'liga', 'calt';
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+html[lang="ar"] body { font-family: var(--f-ar-text); line-height: 1.86; }
+h1, h2, h3, h4, p, figure, dl, dd, ol, ul { margin: 0; }
+ol, ul { padding: 0; list-style: none; }
+img, svg, canvas, picture { display: block; max-width: 100%; }
+img { height: auto; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .22em; }
+button { font: inherit; color: inherit; }
+bdi { unicode-bidi: isolate; }
+.sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+::selection { background: var(--lamp); color: var(--blue-hour); }
+
+:focus-visible { outline: 2px solid var(--lit); outline-offset: 3px; border-radius: 2px; }
+[data-tone="night"] :focus-visible { outline-color: var(--lamp); }
+
+.skip {
+  position: fixed; inset-block-start: 10px; inset-inline-start: 10px; z-index: 100;
+  padding: .6em 1em; background: var(--blue-hour); color: #fff; transform: translateY(-160%);
+  transition: transform .2s var(--ease);
+}
+.skip:focus { transform: none; }
+
+/* ───────── Type roles ───────── */
+.project__title, .section-title {
+  font-size: var(--t-2xl); font-stretch: 66%; font-weight: 780; line-height: .92; letter-spacing: -0.012em;
+  text-wrap: balance; max-width: 13ch;
+}
+.h3 { font-size: var(--t-xl); font-stretch: 74%; font-weight: 700; line-height: 1.02; letter-spacing: -0.006em; text-wrap: balance; max-width: 18ch; }
+.lead { font-size: var(--t-l); line-height: 1.42; font-stretch: 94%; font-weight: 380; max-width: 36ch; color: var(--fg-2); text-wrap: pretty; }
+.project__summary { font-size: var(--t-l); line-height: 1.4; font-stretch: 94%; font-weight: 380; max-width: 34ch; text-wrap: pretty; }
+.fig__cap, .meta { font-size: var(--t-xs); font-stretch: 116%; font-weight: 470; letter-spacing: .012em; line-height: 1.45; color: var(--fg-2); }
+.num, .tabular { font-variant-numeric: tabular-nums lining-nums; }
+
+html[lang="ar"] .project__title, html[lang="ar"] .section-title, html[lang="ar"] .h3 {
+  font-family: var(--f-ar-head); font-stretch: normal; letter-spacing: 0; line-height: 1.32; font-weight: 800;
+}
+html[lang="ar"] .project__title, html[lang="ar"] .section-title { font-size: calc(var(--t-2xl) * .7); max-width: 16ch; }
+html[lang="ar"] .h3 { font-size: calc(var(--t-xl) * .84); font-weight: 750; }
+html[lang="ar"] .lead, html[lang="ar"] .project__summary { font-stretch: normal; line-height: 1.75; font-size: calc(var(--t-l) * .92); max-width: 40ch; }
+html[lang="ar"] .fig__cap, html[lang="ar"] .meta { font-stretch: normal; letter-spacing: 0; font-size: var(--t-s); }
+html[lang="tr"] .project__title { max-width: 14ch; }
+
+/* ───────── Layout primitives ───────── */
+.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--g); padding-inline: var(--m); }
+
+/* ───────── Figures & images ───────── */
+.fig { position: relative; min-width: 0; }
+.fig__cap { margin-block-start: .7rem; max-width: 46ch; }
+.pic {
+  position: relative; overflow: hidden; aspect-ratio: var(--ar);
+  background: var(--dom, transparent) var(--lqip, none) center / cover no-repeat;
+}
+.pic img { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .7s var(--ease); }
+.pic img.is-loaded, .no-js .pic img { opacity: 1; }
+.pic--alpha { background: none; }
+.pic--drawing img { object-fit: contain; }
+[data-tone="night"] .pic--drawing:not(.pic--sheet) img { filter: invert(.9) hue-rotate(180deg) saturate(.75); }
+/* the nearest tone wins: a light sheet nested inside a night project keeps its ink dark */
+[data-tone="night"] [data-tone]:not([data-tone="night"]) .pic--drawing:not(.pic--sheet) img { filter: none; }
+
+.zoom {
+  display: block; width: 100%; padding: 0; border: 0; margin: 0; background: none; cursor: zoom-in;
+  position: relative; text-align: inherit; color: inherit;
+}
+.zoom__icon {
+  position: absolute; inset-block-start: 10px; inset-inline-end: 10px; width: 34px; height: 34px;
+  display: grid; place-items: center; border-radius: 50%;
+  background: color-mix(in srgb, var(--blue-hour) 72%, transparent); color: #fff;
+  opacity: 0; transform: scale(.85); transition: opacity .25s, transform .35s var(--ease);
+  pointer-events: none;
+}
+.zoom__icon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.zoom:hover .zoom__icon, .zoom:focus-visible .zoom__icon { opacity: 1; transform: none; }
+@media (hover: none) { .zoom__icon { opacity: .9; transform: none; width: 30px; height: 30px; } }
+
+/* definition list of facts */
+.facts { display: grid; gap: .85rem; align-content: start; }
+.facts__row { display: grid; grid-template-columns: minmax(6.25rem, 8.5rem) minmax(0, 1fr); column-gap: 1rem; align-items: baseline; }
+.facts dt { font-size: var(--t-xs); font-stretch: 118%; font-weight: 500; color: var(--fg-2); letter-spacing: .012em; }
+.facts dd { font-size: var(--t-s); line-height: 1.45; text-wrap: pretty; }
+html[lang="ar"] .facts dt { font-stretch: normal; font-size: var(--t-s); letter-spacing: 0; }
+
+.anchor { position: absolute; inset-block-end: 100vh; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: .7em; min-height: 46px; padding: .55em 1.15em;
+  border: 1px solid var(--line-2); border-radius: 999px; background: none; color: inherit; cursor: pointer;
+  font-size: var(--t-s); font-stretch: 106%; font-weight: 500; text-decoration: none;
+  transition: background-color .25s, color .25s, border-color .25s;
+}
+.btn:hover { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.btn__k { color: var(--fg-2); font-stretch: 116%; font-size: var(--t-xs); }
+.btn:hover .btn__k { color: inherit; }
