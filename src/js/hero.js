@@ -49,21 +49,25 @@ export function initHero(ctx) {
     }).catch((e) => { console.warn('3D unavailable', e); fallback(); });
   }
   function fallback() {
+    // no WebGL: the hero becomes a plain cover (the night render), the track collapses, the page light takes over
     root.classList.add('no-webgl');
-    tone.bg = LAB.night.bg; tone.fg = LAB.night.fg; tone.dark = 1;
-    ctx.toneUpdate && ctx.toneUpdate();
+    ctx.heroTone = null;
+    intro.style.cssText = '';
+    cue.style.opacity = '';
+    requestAnimationFrame(() => ScrollTrigger.refresh());
   }
 
   let lastStep = -1, lastWords = -1;
   function update(prog) {
     p = prog;
+    if (root.classList.contains('no-webgl')) return;
     const out = smooth(0.025, 0.11, p);
     intro.style.opacity = 1 - out;
     intro.style.transform = `translateY(${-out * 6}vh)`;
     intro.style.visibility = out >= 1 ? 'hidden' : '';
     cue.style.opacity = 1 - smooth(0, 0.035, p);
 
-    if (root.classList.contains('no-webgl')) { tone.active = p < 0.999; return; }
+
 
     // light
     const n = smooth(0.44, 0.66, p);
@@ -98,6 +102,15 @@ export function initHero(ctx) {
     shade.style.opacity = smooth(0.9, 1, p);
     if (three) { three.setProgress(p); three.setRunning(r < 0.999); }
     ctx.toneUpdate && ctx.toneUpdate();
+  }
+
+  // the model answers the pointer (fine pointers only)
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    hero.addEventListener('pointermove', (e) => {
+      if (!three) return;
+      three.setPointer((e.clientX / innerWidth - 0.5) * 2, (e.clientY / innerHeight - 0.5) * 2);
+    });
+    hero.addEventListener('pointerleave', () => three && three.setPointer(0, 0));
   }
 
   ScrollTrigger.create({

@@ -97,12 +97,13 @@ html[lang="ar"] .menu__title { font-family: var(--f-ar-head); font-stretch: norm
 }
 
 /* ───────── Viewer ───────── */
-.viewer { position: fixed; inset: 0; z-index: 90; background: rgba(9, 16, 27, .97); color: #E8ECEF; display: grid; grid-template-rows: 1fr auto; }
+.viewer { position: fixed; inset: 0; z-index: 90; background: #0A111C; color: #E8ECEF; display: grid; grid-template-rows: 1fr auto; }
 .viewer[hidden] { display: none; }
-.viewer__canvas { position: relative; overflow: hidden; touch-action: none; cursor: grab; }
+.viewer__canvas { position: relative; overflow: hidden; touch-action: none; cursor: grab; direction: ltr; }
 .viewer__canvas.is-dragging { cursor: grabbing; }
 .viewer__img {
-  position: absolute; inset-block-start: 0; inset-inline-start: 0; left: 0; max-width: none; transform-origin: 0 0; user-select: none;
+  /* pan/zoom maths is physical: pin to the top-left in every writing direction */
+  position: absolute; top: 0; left: 0; right: auto; max-width: none; transform-origin: 0 0; user-select: none;
   will-change: transform;
 }
 .viewer__img.is-drawing { background: #FBFBF9; }

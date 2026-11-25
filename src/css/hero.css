@@ -35,6 +35,9 @@ html[lang="ar"] .hero__role, html[lang="ar"] .hero__tagline { font-stretch: norm
 .motion .hero__fallback { display: none; }
 .no-webgl .hero__fallback { display: block; }
 .no-webgl .hero__canvas { display: none; }
+.motion.no-webgl .hero__track { height: auto; }
+.motion.no-webgl .hero__stage { position: relative; }
+.no-webgl .hero__story, .no-webgl .hero__steps { display: none !important; }
 .motion .hero__story, .motion .hero__steps, .motion .hero__note, .motion .hero__cue, .motion .hero__labels { display: block; }
 .no-webgl .hero__labels, .no-webgl .hero__note { display: none; }
 

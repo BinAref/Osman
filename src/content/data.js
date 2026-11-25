@@ -114,7 +114,7 @@ export const ui = {
   cvTr: L('CV in Turkish (PDF)', 'السيرة الذاتية بالتركية (PDF)', 'Türkçe özgeçmiş (PDF)'),
   portfolio: L('Full portfolio (PDF, 5.4 MB)', 'ملف الأعمال كاملًا (PDF، ‏5.4 ميغابايت)', 'Portfolyonun tamamı (PDF, 5,4 MB)'),
   backToTop: L('Back to the top', 'العودة إلى الأعلى', 'Başa dön'),
-  rights: L('All drawings and images by Osman Mohamed.', 'جميع الرسومات والصور من أعمال عثمان محمد.', 'Tüm çizimler ve görseller Osman Mohamed’e aittir.'),
+  rights: L('Drawings and images from Osman Mohamed’s portfolio.', 'الرسومات والصور من ملف أعمال عثمان محمد.', 'Çizimler ve görseller Osman Mohamed’in portfolyosundandır.'),
   contactLine: L('Write or call — in Arabic, English or Turkish.', 'راسلني أو اتصل بي — بالعربية أو الإنجليزية أو التركية.', 'Arapça, İngilizce ya da Türkçe; yazın veya arayın.'),
   langSuggest: L('This site is also available in English.', 'هذا الموقع متاح بالعربية أيضًا.', 'Bu site Türkçe olarak da mevcut.'),
   drawings: L('Drawings', 'الرسومات', 'Çizimler'),

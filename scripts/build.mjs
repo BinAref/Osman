@@ -72,9 +72,16 @@ async function pages() {
     await fs.mkdir(dir, { recursive: true });
     await fs.writeFile(path.join(dir, 'index.html'), html);
   }
-  const notFound = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Page not found — Osman Mohamed</title><link rel="icon" href="/favicon.svg"><style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0E1A2B;color:#E8ECEF;font:17px/1.6 system-ui,sans-serif}main{max-width:34rem;padding:2rem}h1{font-size:2rem;margin:0 0 1rem}a{color:#F1B86A}p{margin:.4rem 0}</style></head><body><main><h1>This page does not exist.</h1><p><a href="/">Go to the home page</a></p><p dir="rtl" lang="ar">هذه الصفحة غير موجودة. <a href="/ar/">العودة إلى الصفحة الرئيسية</a></p><p lang="tr">Bu sayfa mevcut değil. <a href="/tr/">Ana sayfaya dön</a></p></main></body></html>`;
+  // works on a custom domain and on a GitHub Pages project site (/<repo>/): the base is resolved at runtime
+  const notFound = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Page not found — Osman Mohamed</title><style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0E1A2B;color:#E8ECEF;font:17px/1.6 system-ui,sans-serif}main{max-width:34rem;padding:2rem}h1{font-size:2rem;margin:0 0 1rem}a{color:#F1B86A}p{margin:.4rem 0}</style></head><body><main><h1>This page does not exist.</h1><p><a data-to="">Go to the home page</a></p><p dir="rtl" lang="ar">هذه الصفحة غير موجودة. <a data-to="ar/">العودة إلى الصفحة الرئيسية</a></p><p lang="tr">Bu sayfa mevcut değil. <a data-to="tr/">Ana sayfaya dön</a></p></main><script>var s=location.pathname.split('/')[1],b=${SITE_URL ? `'${new URL(SITE_URL).pathname}'` : `(/\\.github\\.io$/.test(location.hostname)&&s?'/'+s+'/':'/')`};document.querySelectorAll('[data-to]').forEach(function(a){a.href=b+a.dataset.to});</script></body></html>`;
   await fs.writeFile(path.join(OUT, '404.html'), notFound);
-  await fs.writeFile(path.join(OUT, 'robots.txt'), 'User-agent: *\nAllow: /\n');
+  await fs.writeFile(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\n${SITE_URL ? `Sitemap: ${SITE_URL}sitemap.xml\n` : ''}`);
+  if (SITE_URL) {
+    const langs = { en: '', ar: 'ar/', tr: 'tr/' };
+    const alts = Object.entries(langs).map(([l, p]) => `<xhtml:link rel="alternate" hreflang="${l}" href="${SITE_URL}${p}"/>`).join('');
+    const urls = Object.values(langs).map((p) => `<url><loc>${SITE_URL}${p}</loc>${alts}</url>`).join('');
+    await fs.writeFile(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${urls}</urlset>`);
+  }
   await fs.writeFile(path.join(OUT, '.nojekyll'), '');
   return version;
 }

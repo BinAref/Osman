@@ -33,8 +33,8 @@
 
   --bg: var(--vellum);
   --fg: var(--graphite);
-  --fg-2: color-mix(in srgb, var(--fg) 66%, var(--bg));
-  --fg-3: color-mix(in srgb, var(--fg) 40%, var(--bg));
+  --fg-2: color-mix(in srgb, var(--fg) 74%, var(--bg));
+  --fg-3: color-mix(in srgb, var(--fg) 48%, var(--bg));
   --line: color-mix(in srgb, var(--fg) 16%, transparent);
   --line-2: color-mix(in srgb, var(--fg) 42%, transparent);
   --lit: var(--graphite);  /* active accent: graphite by day, lamplight by night */
@@ -72,6 +72,8 @@
 [data-tone="landscape"] { --tone-bg: #DFE4D9; --tone-fg: #1E2620; }
 [data-tone="overcast"]  { --tone-bg: #CBD0D3; --tone-fg: #1C2125; }
 html:not(.tone-js) [data-tone] { --bg: var(--tone-bg); --fg: var(--tone-fg); background: var(--bg); color: var(--fg); }
+/* with motion the hero opens on the vellum drawing (its 3D scene owns the light); fallbacks keep the night render */
+.motion:not(.no-webgl) [data-hero][data-tone] { --tone-bg: #E3E7E4; --tone-fg: #22282D; }
 [data-tone="night"] { --lit: var(--lamp); }
 
 /* ───────── Base ───────── */

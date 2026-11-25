@@ -88,7 +88,7 @@ export function renderPage({ lang, images, version, siteUrl = '', heroChunk = ''
   const nameLines = t(person.name).split(' ');
   const R = P.rcc;
   const hero = `
-<section class="hero" id="top" data-hero data-tone="vellum" aria-labelledby="hero-name">
+<section class="hero" id="top" data-hero data-tone="night" aria-labelledby="hero-name">
   <div class="hero__track">
     <div class="hero__stage">
       <div class="hero__fallback">${pic('rcc-night', { sizes: '100vw', decorative: true, eager: true })}</div>
@@ -605,6 +605,14 @@ ${lang === 'en' ? `<script>try{if(!localStorage.getItem('om-lang')&&!location.ha
 ${og}
 <meta name="twitter:card" content="summary_large_image">
 ${alt}<link rel="alternate" hreflang="x-default" href="${siteUrl || href('en')}">
+<script type="application/ld+json">${JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'Person',
+  name: person.fullName.en, alternateName: [person.name.en, person.name.ar], jobTitle: t(person.role),
+  email: `mailto:${person.email}`, telephone: person.phoneHref,
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'Istanbul Gelişim University' },
+  knowsLanguage: ['ar', 'en', 'tr'],
+  ...(siteUrl ? { url: siteUrl + LANG_META[lang].path, image: `${siteUrl}img/og-${lang}.jpg` } : {}),
+})}</script>
 <link rel="icon" href="${base}favicon.svg" type="image/svg+xml">
 <link rel="icon" href="${base}favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="${base}apple-touch-icon.png">

@@ -134,12 +134,12 @@ function glassMaterial(seed, uniforms, podium, center, radius) {
         float side = 1.0 - step(0.5, abs(vWn.y));
         float mull = smoothstep(0.04, 0.1, fract(u)) * (1.0 - smoothstep(0.9, 0.96, fract(u)));
         float run = floor(col / 7.0);
-        float r = h21(vec2(run + uSeed * 17.0, vInst * 3.1 + uSeed));
-        float r2 = h21(vec2(col * 1.7 + uSeed, vInst + 11.0));
+        float inst = floor(vInst + 0.5); // interpolated varyings drift by ~1e-4: round before hashing
+        float r = h21(vec2(run + uSeed * 17.0, inst * 3.1 + uSeed));
+        float r2 = h21(vec2(col * 1.7 + uSeed, inst + 11.0));
         float lit = step(r, uLit) * step(0.12, r2);
         if (uPodium > 0.5) lit = step(0.18, r2) * smoothstep(0.0, 0.25, uLit);
-        float warm = mix(0.5, 1.0, h21(vec2(col, vInst + 7.0)));
-        float sill = smoothstep(0.0, 0.12, fract((vWp.y - 0.0) / 3.3));
+        float warm = mix(0.5, 1.0, h21(vec2(col, inst + 7.0)));
         totalEmissiveRadiance += uLamp * lit * mull * warm * side * uNight * (uPodium > 0.5 ? 0.85 : 0.62);
         vec3 sky = mix(vec3(0.03, 0.06, 0.12), vec3(0.16, 0.24, 0.4), smoothstep(10.0, 110.0, vWp.y));
         diffuseColor.rgb = mix(diffuseColor.rgb * (1.0 - 0.06 * (1.0 - mull) * side), sky * (0.55 + 0.45 * mull), uNight * side);`);
@@ -289,14 +289,17 @@ export function createHero(canvas, { mobile, rtl = false }) {
     { p: 1.0, phi: 96, theta: 0, rp: 0, rb: 1.32, ty: 47, tx: 0, tz: -8 },
   ];
   let fitR = 300, fitB = 200, planShift = 0;
+  const ptr = { x: 0, y: 0, tx: 0, ty: 0 };
   const target = new Vector3();
   function cameraAt(p) {
     let i = 0;
     while (i < keys.length - 2 && p > keys[i + 1].p) i++;
     const a = keys[i], b = keys[i + 1];
     const t = smooth(a.p, b.p, p);
-    const phi = MathUtils.degToRad(lerp(a.phi, b.phi, t));
-    const theta = MathUtils.degToRad(lerp(a.theta, b.theta, t));
+    // pointer: a few degrees of orbit once the plan has become a volume
+    const look = smooth(0.12, 0.22, p);
+    const phi = MathUtils.degToRad(lerp(a.phi, b.phi, t) + ptr.y * 2.2 * look);
+    const theta = MathUtils.degToRad(lerp(a.theta, b.theta, t) + ptr.x * 5 * look);
     const r = fitR * lerp(a.rp, b.rp, t) + fitB * lerp(a.rb, b.rb, t);
     const ax = a.tx === 'shift' ? planShift : a.tx, bx = b.tx === 'shift' ? planShift : b.tx;
     target.set(lerp(ax, bx, t), lerp(a.ty, b.ty, t), lerp(a.tz, b.tz, t));
@@ -403,6 +406,10 @@ export function createHero(canvas, { mobile, rtl = false }) {
       intro = Math.min(1, (t - lastIntroT) / 1900);
       apply();
     }
+    if (Math.abs(ptr.tx - ptr.x) + Math.abs(ptr.ty - ptr.y) > 1e-4) {
+      ptr.x += (ptr.tx - ptr.x) * 0.06; ptr.y += (ptr.ty - ptr.y) * 0.06;
+      cameraAt(progress); dirty = true;
+    }
     if (dirty && running) { renderer.render(scene, camera); dirty = false; }
   }
 
@@ -411,6 +418,7 @@ export function createHero(canvas, { mobile, rtl = false }) {
 
   return {
     setProgress(p) { if (Math.abs(p - progress) > 1e-5) { progress = p; apply(); } },
+    setPointer(x, y) { ptr.tx = x; ptr.ty = y; },
     resize() { resize(); apply(); },
     labelScreen,
     setRunning(r) { running = r; if (r) dirty = true; },
